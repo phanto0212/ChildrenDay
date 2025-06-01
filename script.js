@@ -133,7 +133,7 @@ function tapLove(id) {
       if (!loveMsg) return console.error('Không tìm thấy element loveMsg!');
 
       typeWriterEffect(
-        `Chúc ${userName} của anh 1/6 thật vui vẻ như một đứa trẻ, nhưng được anh yêu như một nữ hoàng 👑. Dù em có lớn bao nhiêu thì trong tim anh, em vẫn là công chúa bé bỏng cần được cưng chiều mỗi ngày! 💘`,
+        `Chúc ${userName} của anh một ngày 1/6 thật vui vẻ, hồn nhiên như một đứa trẻ, nhưng luôn được anh yêu thương như một nữ hoàng 👑. Dù em có trưởng thành đến đâu, thì trong tim anh, em mãi là cô công chúa bé bỏng cần được anh cưng chiều mỗi ngày!`,
         'loveMsg',
         () => {
           const fromTag = document.createElement("div");
