@@ -192,7 +192,7 @@ function tapLove(id, event) {
           "Haha dễ lừa ghê 🤣",
           "Thôi không dỗi lần cuối nè 😘 ",
           "Yêu anh không? ❤️",
-          
+
         ];
         
         // Tạo và hiển thị thông báo nhỏ
@@ -254,8 +254,8 @@ function tapLove(id, event) {
     showConfetti(); // Thêm hiệu ứng confetti
     
     Swal.fire({
-      title: 'Đủ 4 love rồi nè!',
-      text: 'Sẵn sàng nhận quà chưa? 💖',
+      title: 'Cảm ơn em đã chạm đủ nha! 💕',
+      text: 'Sẵn sàng nhận bất ngờ ngọt ngào từ anh chưa nào? 🎁',
       timer: 1500,
       showConfirmButton: false,
       background: '#fffbe7',
