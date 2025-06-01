@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiệp 1/6 tặng bé iu 💖</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+</head>
+<body>
+  <div class="confetti" id="confetti-container"></div>
+  
+  <div id="startStage" class="stage-transition">
+    <h1 style="color: #ff4081; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+      Quà Mừng Ngày Thiếu Nhi 1/6 💖
+    </h1>
+    <img src="giftbox.png" alt="Hộp quà" class="gift-image" onclick="startApp()" />
+    <p>Nhấn vào hộp quà để mở điều bất ngờ!</p>
+  </div>
+  
+  <div id="inputStage" style="display:none;"></div>
+  
+  <div id="loveStage" style="display:none;" class="stage-transition">
+    <p id="lovePrompt">Chạm đủ 4 trái tim ❤️ để nhận combo quà từ anh nè</p>
+    <div id="loveIcons">
+      <span class="love-icon" onclick="tapLove(1)">❤️</span>
+      <span class="love-icon" onclick="tapLove(2)">❤️</span>
+      <span class="love-icon" onclick="tapLove(3)">❤️</span>
+      <span class="love-icon" onclick="tapLove(4)">❤️</span>
+    </div>
+  </div>
+  
+  <div id="cardStage" style="display:none;" class="stage-transition">
+    <div class="card">
+      <img src="cute.gif" alt="Cute gif" class="gif" />
+      <p id="loveMsg"></p>
+    </div>
+  </div>
+  
+  <audio id="bgMusic" src="phoncert.mp3" loop></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
