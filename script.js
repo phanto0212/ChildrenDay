@@ -268,7 +268,7 @@ function tapLove(id, event) {
       switchStage('loveStage', 'cardStage', true);
       
       // Thêm hiệu ứng confetti khi hiển thị bảng tin nhắn
-      setTimeout(showConfetti, 22000);
+      setTimeout(showConfetti, 2000);
 
       const loveMsg = document.getElementById('loveMsg');
       if (!loveMsg) return console.error('Không tìm thấy element loveMsg!');
@@ -294,7 +294,7 @@ function tapLove(id, event) {
               origin: { y: 0.8 },
               colors: ['#ff4081', '#ffb74d'],
             });
-          }, 2500);
+          }, 1000);
         }
       );
     });
