@@ -254,8 +254,8 @@ function tapLove(id, event) {
     showConfetti(); // Thêm hiệu ứng confetti
     
     Swal.fire({
-      title: 'Cảm ơn em đã chạm đủ nha! 💕',
-      text: 'Sẵn sàng nhận bất ngờ ngọt ngào từ anh chưa nào? 🎁',
+      title: 'Cảm ơn em đã chạm đủ nha!',
+      text: 'Sẵn sàng nhận món quà ngọt ngào từ anh chưa nào? 🎁',
       timer: 1500,
       showConfirmButton: false,
       background: '#fffbe7',
@@ -268,7 +268,7 @@ function tapLove(id, event) {
       switchStage('loveStage', 'cardStage', true);
       
       // Thêm hiệu ứng confetti khi hiển thị bảng tin nhắn
-      setTimeout(showConfetti, 1000);
+      setTimeout(showConfetti, 2000);
 
       const loveMsg = document.getElementById('loveMsg');
       if (!loveMsg) return console.error('Không tìm thấy element loveMsg!');
