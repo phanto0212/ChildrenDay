@@ -268,18 +268,18 @@ function tapLove(id, event) {
       switchStage('loveStage', 'cardStage', true);
       
       // Thêm hiệu ứng confetti khi hiển thị bảng tin nhắn
-      setTimeout(showConfetti, 2000);
+      setTimeout(showConfetti, 22000);
 
       const loveMsg = document.getElementById('loveMsg');
       if (!loveMsg) return console.error('Không tìm thấy element loveMsg!');
 
       typeWriterEffect(
-        `Chúc ${userName} của anh một ngày 1/6 thật vui vẻ, hồn nhiên như một đứa trẻ, nhưng luôn được anh yêu thương như một nữ hoàng 👑. Dù em có trưởng thành đến đâu, thì trong tim anh, em mãi là cô công chúa bé bỏng cần được anh cưng chiều mỗi ngày!`,
+        `Hôm nay ${userName} sẽ là embee của anh, anh chúc embee có một ngày vui vẻ, hạnh phúc và mãi là embee của anh, chúc cho đôi mình bên nhau thật bền lâu, dù có chuyện gì xảy ra thì vẫn cùng nhau vượt qua nhéee 🥰`,
         'loveMsg',
         () => {
           const fromTag = document.createElement("div");
           fromTag.id = 'fromTag';
-          fromTag.textContent = "From: Anh Cún :))";
+          fromTag.textContent = "From: Anh Cún with Love ❤️";
           fromTag.style.marginTop = "20px";
           fromTag.style.opacity = "0";
           fromTag.style.transition = "opacity 1s ease";
@@ -294,7 +294,7 @@ function tapLove(id, event) {
               origin: { y: 0.8 },
               colors: ['#ff4081', '#ffb74d'],
             });
-          }, 500);
+          }, 2500);
         }
       );
     });
