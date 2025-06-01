@@ -3,6 +3,10 @@ const loveTaps = new Set();
 // Thiết lập tên mặc định
 let userName = 'My'; // Thay "Bé Iuu" bằng tên bạn muốn sử dụng
 
+// Thêm biến để theo dõi số lần trái tim cuối cùng đã nhảy
+let lastHeartJumpCount = 0;
+let lastHeartId = null;
+
 function startApp() {
   const stageIds = ['cardStage', 'startStage', 'inputStage', 'loveStage'];
   const stages = Object.fromEntries(stageIds.map(id => [id, document.getElementById(id)]));
@@ -105,14 +109,147 @@ function showConfetti() {
   }, 500);
 }
 
-function tapLove(id) {
+// Hàm để tìm ID của trái tim cuối cùng chưa được chạm
+function findLastHeart() {
+  for (let i = 1; i <= 4; i++) {
+    if (!loveTaps.has(i)) {
+      return i;
+    }
+  }
+  return null;
+}
+
+// Hàm để di chuyển trái tim đến vị trí ngẫu nhiên
+function moveHeartToRandomPosition(heartId) {
+  const loveIcon = document.querySelector(`#loveIcons .love-icon:nth-child(${heartId})`);
+  const container = document.getElementById('loveIcons');
+  
+  // Kích thước container
+  const containerRect = container.getBoundingClientRect();
+  
+  // Kích thước trái tim
+  const heartSize = loveIcon.offsetWidth;
+  
+  // Tính toán vị trí mới, giữ trong giới hạn container
+  const maxX = containerRect.width - heartSize;
+  const maxY = containerRect.height - heartSize;
+  
+  // Tạo vị trí ngẫu nhiên
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+  
+  // Áp dụng hiệu ứng và vị trí mới
+  loveIcon.style.transition = 'all 0.3s ease';
+  loveIcon.style.position = 'absolute';
+  loveIcon.style.left = `${randomX}px`;
+  loveIcon.style.top = `${randomY}px`;
+  loveIcon.style.zIndex = '100';
+  
+  // Thêm hiệu ứng nhảy
+  loveIcon.animate([
+
+    { transform: 'scale(1)', opacity: 0.7 },
+    { transform: 'scale(1.2)', opacity: 1 },
+    { transform: 'scale(1)', opacity: 0.7 }
+  ], {
+    duration: 300,
+    iterations: 1
+  });
+}
+
+// Cập nhật hàm tapLove để xử lý trái tim cuối cùng
+function tapLove(id, event) {
+  if (event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của trình duyệt
+  }
+  
   if (loveTaps.has(id)) return;
 
+  // Kiểm tra nếu đã chạm 3 tim và đây là tim cuối cùng
+  if (loveTaps.size === 3) {
+    // Xác định ID của trái tim cuối cùng nếu chưa biết
+    if (lastHeartId === null) {
+      lastHeartId = findLastHeart();
+    }
+    
+    // Nếu đang cố gắng chạm vào trái tim cuối cùng
+    if (id === lastHeartId) {
+      // Nếu chưa nhảy đủ 4 lần, di chuyển nó
+      if (lastHeartJumpCount < 6) {
+        lastHeartJumpCount++;
+        moveHeartToRandomPosition(id);
+        
+        // Thêm hiệu ứng rung nếu thiết bị hỗ trợ
+        if (window.navigator && window.navigator.vibrate) {
+          window.navigator.vibrate(30);
+        }
+        
+        // Hiển thị tin nhắn nhỏ
+        const messages = [
+          "Hihi, bắt anh đi!",
+          "Không dễ đâu nha!",
+          "Lần cuối nè!",
+          "Haha dễ lừa ghê 🤣",
+          "Thôi không dỗi lần cuối nè 😘 ",
+          "Yêu anh không? ❤️",
+          
+        ];
+        
+        // Tạo và hiển thị thông báo nhỏ
+        const msg = document.createElement('div');
+        msg.className = 'heart-message';
+        msg.textContent = messages[lastHeartJumpCount-1];
+        msg.style.position = 'absolute';
+        msg.style.color = '#ff4081';
+        msg.style.fontWeight = 'bold';
+        msg.style.fontSize = '16px';
+        msg.style.top = '0';
+        msg.style.left = '0';
+        msg.style.transform = 'translateY(-100%)';
+        msg.style.whiteSpace = 'nowrap';
+        msg.style.transition = 'opacity 0.5s';
+        msg.style.opacity = '0';
+        
+        const loveIcon = document.querySelector(`#loveIcons .love-icon:nth-child(${id})`);
+        loveIcon.appendChild(msg);
+        
+        setTimeout(() => {
+          msg.style.opacity = '1';
+        }, 50);
+        
+        setTimeout(() => {
+          msg.style.opacity = '0';
+          setTimeout(() => {
+            msg.remove();
+          }, 500);
+        }, 1500);
+        
+        return; // Dừng xử lý
+      }
+    }
+  }
+
   const loveIcon = document.querySelector(`#loveIcons .love-icon:nth-child(${id})`);
+  
+  // Thêm hiệu ứng phản hồi
   loveIcon.classList.add('tapped');
+  
+  // Đặt lại style vị trí nếu đây là trái tim cuối cùng
+  if (id === lastHeartId) {
+    loveIcon.style.position = '';
+    loveIcon.style.left = '';
+    loveIcon.style.top = '';
+  }
+  
+  // Thêm hiệu ứng rung nhẹ nếu thiết bị hỗ trợ
+  if (window.navigator && window.navigator.vibrate) {
+    window.navigator.vibrate(50); // Rung 50ms
+  }
+  
   loveTaps.add(id);
   console.log(`Chạm love ${id}, tổng: ${loveTaps.size}`);
 
+  // Kiểm tra nếu đã chạm đủ 4 tim
   if (loveTaps.size === 4) {
     showConfetti(); // Thêm hiệu ứng confetti
     
@@ -124,6 +261,10 @@ function tapLove(id) {
       background: '#fffbe7',
       customClass: { title: 'swal-title', content: 'swal-text' }
     }).then(() => {
+      // Reset lại các biến theo dõi trái tim cuối cùng
+      lastHeartJumpCount = 0;
+      lastHeartId = null;
+      
       switchStage('loveStage', 'cardStage', true);
       
       // Thêm hiệu ứng confetti khi hiển thị bảng tin nhắn
@@ -160,4 +301,47 @@ function tapLove(id) {
   }
 }
 
-// Đã loại bỏ hàm inipesan() vì không còn cần thiết
+// Thêm hàm khởi tạo để gắn sự kiện touch tốt hơn cho thiết bị di động
+function initializeTouchEvents() {
+  document.querySelectorAll('.love-icon').forEach((icon, index) => {
+    // Xóa sự kiện click cũ nếu có
+    icon.removeAttribute('onclick');
+    
+    // Thêm sự kiện touch mới
+    icon.addEventListener('touchstart', function(e) {
+      e.preventDefault(); // Ngăn chặn hành vi mặc định
+      tapLove(index + 1, e);
+    }, { passive: false });
+    
+    // Giữ lại sự kiện click cho desktop
+    icon.addEventListener('click', function(e) {
+      tapLove(index + 1, e);
+    });
+  });
+}
+
+// Cập nhật hàm startApp để khởi tạo sự kiện touch
+function startApp() {
+  const stageIds = ['cardStage', 'startStage', 'inputStage', 'loveStage'];
+  const stages = Object.fromEntries(stageIds.map(id => [id, document.getElementById(id)]));
+
+  if (Object.values(stages).some(stage => !stage)) {
+    console.error('Thiếu một trong các element stage!');
+    return;
+  }
+
+  // Chuyển trực tiếp từ startStage sang loveStage, bỏ qua inputStage
+  stages.startStage.style.display = 'none';
+  stages.loveStage.style.display = 'block';
+  stages.cardStage.style.display = 'none';
+
+  document.getElementById('bgMusic')?.play().catch(err =>
+    console.warn('Không thể phát nhạc:', err)
+  );
+
+  // Khởi tạo trạng thái ban đầu
+  resetLoveIcons();
+  
+  // Khởi tạo sự kiện touch
+  initializeTouchEvents();
+}

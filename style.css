@@ -101,6 +101,8 @@ body {
   height: auto;
   border-radius: 20px;
   margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 3px solid #fff;
 }
 
 #loveMsg {
@@ -329,4 +331,38 @@ body {
   body {
     min-height: -webkit-fill-available;
   }
+}
+/* Thêm style cho container trái tim để hỗ trợ positioning */
+#loveIcons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  position: relative;
+  min-height: 120px; /* Đảm bảo có đủ không gian cho trái tim nhảy */
+  margin: 15px auto;
+  padding: 10px;
+}
+
+/* Hiệu ứng cho trái tim nhảy */
+@keyframes heartJump {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.2); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* Hiệu ứng cho tin nhắn từ trái tim */
+.heart-message {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 200;
+  white-space: nowrap;
 }
