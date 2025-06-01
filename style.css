@@ -96,14 +96,14 @@ body {
 }
 
 .gif {
-  width: 220px;
+  width: 200px;
   max-width: 100%;
   height: auto;
   border-radius: 20px;
-  margin-bottom: 25px;
-  margin-right: 12px;
-  box-shadow: 0 5px 15px rgba(189, 187, 187, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border: 3px solid #fff;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 }
 
 #loveMsg {
@@ -239,6 +239,14 @@ body {
     width: 180px;
     margin-top: 30px;
   }
+  
+  .image-container {
+    gap: 10px;
+  }
+  
+  .gif {
+    width: 180px;
+  }
 }
 
 /* Responsive styles - Mobile */
@@ -264,7 +272,7 @@ body {
   }
   
   .gif {
-    width: 180px;
+    width: 150px;
     margin-bottom: 15px;
   }
   
@@ -293,6 +301,14 @@ body {
   
   #loveStage {
     padding: 20px;
+  }
+  
+  .image-container {
+    gap: 8px;
+  }
+  
+  .gif {
+    width: 150px;
   }
 }
 
